@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "./AddUser.css";
+import { useNavigate } from "react-router-dom";
+import { route } from "../../utils/appRoutes";
 
 const AddUser = ({}) => {
   const [firstNameUser, setFirstNameUser] = useState("");
@@ -9,6 +11,8 @@ const AddUser = ({}) => {
   const [descriptionUser, setDescriptionUser] = useState("");
   const [photoUser, setPhotoUser] = useState("");
   const [users, setUsers] = useState([]);
+
+  const navigate = useNavigate();
 
   const numePattern = new RegExp(/(.*[a-z]){2,20}/);
   const photo = new RegExp(
@@ -53,15 +57,17 @@ const AddUser = ({}) => {
 
   const postUser = async () => {
     if (!validFirstNume) {
+      console.log("numele nu e bun");
       return toast.error("Fitrst name nu este valid.", { toastId: "kjsdkf" });
     }
 
     if (!validLastNume) {
+      console.log("numele nu e bun");
       return toast.error("Last name nu este valid.", { toastId: "kjsdkf" });
     }
 
     if (!validPhoto) {
-      console.log("nu ba");
+      console.log("poza nu e buna");
       return toast.error("Photo nu este valida.", { toastId: "kjsdkf" });
     }
 
@@ -94,14 +100,13 @@ const AddUser = ({}) => {
 
   useEffect(() => {
     getUsers();
-    console.log(users);
   }, []);
 
-  console.log(users);
 
   return (
     <div className="content">
-      <button className="btn-back">Back</button>
+      <button className="btn-back"
+      onClick={ () => {navigate(route.userCard); }}>Back</button>
       <form>
         <div className="formular">
           <input
